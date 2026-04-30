@@ -6,18 +6,37 @@ tasks = ["Learn DevOps", "Deploy on Cloud"]
 
 @app.route('/')
 def home():
-    return {"message": "DevOps Project Running"}
-
-@app.route('/tasks', methods=['GET'])
-def get_tasks():
-    return {"tasks": tasks}
-
-@app.route('/tasks', methods=['POST'])
-def add_task():
-    data = request.json
-    task = data.get("task")
-    tasks.append(task)
-    return {"message": "Task added", "tasks": tasks}
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    return """
+    <html>
+    <head>
+        <title>DevOps Project</title>
+        <style>
+            body {
+                font-family: Arial;
+                text-align: center;
+                background: #0f172a;
+                color: white;
+                padding: 50px;
+            }
+            h1 { color: #38bdf8; }
+            .box {
+                background: #1e293b;
+                padding: 20px;
+                border-radius: 10px;
+                display: inline-block;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🚀 DevOps Pipeline Live</h1>
+        <div class="box">
+            <p>✅ Flask App Running</p>
+            <p>✅ Docker Containerized</p>
+            <p>✅ CI/CD Enabled</p>
+            <p>☁️ Deployed on AWS EC2</p>
+        </div>
+        <p style="margin-top:20px;">Try: /tasks</p>
+    </body>
+    </html>
+    """

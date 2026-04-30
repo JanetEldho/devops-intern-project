@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install flask
+RUN pip install flask gunicorn
 
-CMD ["python", "app.py"]
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:5000"]

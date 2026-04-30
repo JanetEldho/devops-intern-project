@@ -1,9 +1,13 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+# In-memory task list
 tasks = ["Learn DevOps", "Deploy on Cloud"]
 
+# ----------------------------
+# Home Route (UI)
+# ----------------------------
 @app.route('/')
 def home():
     return """
@@ -26,6 +30,10 @@ def home():
                 display: inline-block;
                 margin-top: 20px;
             }
+            .endpoint {
+                margin-top: 15px;
+                color: #94a3b8;
+            }
         </style>
     </head>
     <body>
@@ -36,7 +44,47 @@ def home():
             <p>✅ CI/CD Enabled</p>
             <p>☁️ Deployed on AWS EC2</p>
         </div>
-        <p style="margin-top:20px;">Try: /tasks</p>
+
+        <div class="endpoint">
+            <p>📌 Try endpoints:</p>
+            <p>/tasks (GET)</p>
+            <p>/tasks (POST)</p>
+        </div>
     </body>
     </html>
     """
+
+# ----------------------------
+# Get all tasks
+# ----------------------------
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+    return jsonify({"tasks": tasks})
+
+# ----------------------------
+# Add a task
+# ----------------------------
+@app.route('/tasks', methods=['POST'])
+def add_task():
+    data = request.get_json()
+    task = data.get("task")
+
+    if task:
+        tasks.append(task)
+        return jsonify({"message": "Task added", "tasks": tasks})
+    else:
+        return jsonify({"error": "No task provided"}), 400
+
+# ----------------------------
+# Health Check (DevOps useful)
+# ----------------------------
+@app.route('/health')
+def health():
+    return jsonify({"status": "running"})
+
+# ----------------------------
+# START APP (CRITICAL)
+# ----------------------------
+if __name__ == '__main__':
+    print("Starting Flask app...")
+    app.run(host="0.0.0.0", port=5000)

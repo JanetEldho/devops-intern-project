@@ -39,7 +39,7 @@ def home():
     <body>
         <h1>🚀 DevOps Pipeline Live</h1>
         <div class="box">
-            <p>✅ Flask App Running</p>
+            <p>✅ new project</p>
             <p>✅ Docker Containerized</p>
             <p>✅ CI/CD Enabled</p>
             <p>☁️ Deployed on AWS EC2</p>

@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+
+# Environment files
+.env
+
+# SSH Keys
+*.pem
+EC2_SSH_KEY
+
+# VS Code settings
+.vscode/
+
+# OS files
+.DS_Store
